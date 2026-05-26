@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard — EduQuiz{% endblock %}
+{% block content %}
+<div class="hero">
+  <h1>Halo, {{ current_user.nama }}!</h1>
+  <p>{% if current_user.role == 'guru' %}Panel Guru — kelola bank soal dan pantau hasil quiz seluruh siswa.{% else %}Selamat belajar! Kerjakan quiz dan pantau perkembangan nilaimu.{% endif %}</p>
+</div>
+<div class="stats-grid">
+  <div class="stat-card"><div class="stat-label">Total Soal</div><div class="stat-value">{{ total_soal }}</div></div>
+  <div class="stat-card orange"><div class="stat-label">Total Pengerjaan</div><div class="stat-value">{{ total_hasil }}</div></div>
+  <div class="stat-card green"><div class="stat-label">{% if current_user.role == 'guru' %}Semua Hasil{% else %}Riwayat Saya{% endif %}</div><div class="stat-value">{{ riwayat }}</div></div>
+</div>
+<div class="card">
+  <h2>Menu Utama</h2>
+  <div style="display:grid;grid-template-columns:repeat({% if current_user.role == 'guru' %}3{% else %}2{% endif %},1fr);gap:1rem;">
+    {% if current_user.role == 'guru' %}<a href="{{ url_for('soal.index') }}" class="btn btn-accent" style="text-align:center;padding:1.2rem;">📝 Kelola Soal</a>{% endif %}
+    <a href="{{ url_for('quiz.index') }}" class="btn btn-primary" style="text-align:center;padding:1.2rem;">✏️ Kerjakan Quiz</a>
+    <a href="{{ url_for('quiz.riwayat') }}" class="btn" style="text-align:center;padding:1.2rem;background:var(--purple-mid);color:#fff;">📊 Riwayat Hasil</a>
+  </div>
+</div>
+{% endblock %}

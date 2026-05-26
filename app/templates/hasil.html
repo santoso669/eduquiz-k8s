@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Hasil Quiz — EduQuiz{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>📊 Riwayat Hasil Quiz</h2>
+  {% if hasils %}
+  <table>
+    <thead>
+      <tr>
+        <th>Kategori</th>
+        {% if current_user.role == 'guru' %}<th>Siswa</th>{% endif %}
+        <th>Skor</th>
+        <th>Total Soal</th>
+        <th>Persentase</th>
+        <th>Tanggal</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for h in hasils %}
+      <tr>
+        <td>{{ h.kategori }}</td>
+        {% if current_user.role == 'guru' %}<td>{{ h.siswa.nama }}</td>{% endif %}
+        <td><strong>{{ h.skor }}</strong></td>
+        <td>{{ h.total_soal }}</td>
+        <td>
+          {% set persen = (h.skor / h.total_soal * 100)|int %}
+          <span class="badge" style="background:{% if persen >= 80 %}#e8f5e9;color:#1b5e20{% elif persen >= 60 %}#fff8e1;color:#e65100{% else %}#ffebee;color:#b71c1c{% endif %}">
+            {{ persen }}%
+          </span>
+        </td>
+        <td>{{ h.created_at.strftime('%d %b %Y %H:%M') }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p style="color:var(--muted);text-align:center;padding:2rem;">Belum ada hasil quiz.</p>
+  {% endif %}
+</div>
+{% endblock %}

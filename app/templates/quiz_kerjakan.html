@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Quiz {{ kategori }} — EduQuiz{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>🎯 Quiz: {{ kategori }}</h2>
+  <p style="color:var(--muted);margin-bottom:1.5rem;">Total soal: <strong>{{ soals|length }}</strong> pertanyaan</p>
+  <form method="POST" action="{{ url_for('quiz.submit') }}">
+    <input type="hidden" name="kategori" value="{{ kategori }}">
+    {% for soal in soals %}
+    <div style="margin-bottom:2rem;padding:1.5rem;background:#f5f5ff;border-radius:12px;">
+      <p style="font-weight:600;margin-bottom:1rem;">{{ loop.index }}. {{ soal.pertanyaan }}</p>
+      {% for opsi, label in [('opsi_a','A'), ('opsi_b','B'), ('opsi_c','C'), ('opsi_d','D')] %}
+      <label class="quiz-option">
+        <input type="radio" name="jawaban_{{ soal.id }}" value="{{ label }}" required>
+        <span><strong>{{ label }}.</strong> {{ soal[opsi] }}</span>
+      </label>
+      {% endfor %}
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-success" style="width:100%;padding:1rem;font-size:1rem;">✅ Selesai & Kirim Jawaban</button>
+  </form>
+</div>
+{% endblock %}

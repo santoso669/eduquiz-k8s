@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}EduQuiz — Platform Quiz Online{% endblock %}
+{% block content %}
+<div class="hero">
+  <h1>EduQuiz</h1>
+  <p>Platform quiz dan latihan soal online untuk mendukung pendidikan berkualitas. Guru membuat soal, siswa berlatih dan memantau perkembangan belajar.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-bottom:2rem;">
+  <div class="card" style="text-align:center;margin:0;">
+    <div style="font-size:2.5rem;margin-bottom:0.5rem;">📝</div>
+    <h3 style="color:var(--purple-dark);margin-bottom:0.5rem;">Kelola Soal</h3>
+    <p style="font-size:0.88rem;color:var(--muted);">Guru dapat membuat dan mengelola bank soal quiz dengan mudah.</p>
+  </div>
+  <div class="card" style="text-align:center;margin:0;">
+    <div style="font-size:2.5rem;margin-bottom:0.5rem;">✏️</div>
+    <h3 style="color:var(--purple-dark);margin-bottom:0.5rem;">Kerjakan Quiz</h3>
+    <p style="font-size:0.88rem;color:var(--muted);">Siswa mengerjakan quiz pilihan ganda dan langsung melihat skor.</p>
+  </div>
+  <div class="card" style="text-align:center;margin:0;">
+    <div style="font-size:2.5rem;margin-bottom:0.5rem;">📊</div>
+    <h3 style="color:var(--purple-dark);margin-bottom:0.5rem;">Riwayat Hasil</h3>
+    <p style="font-size:0.88rem;color:var(--muted);">Pantau riwayat nilai dan perkembangan belajar dari waktu ke waktu.</p>
+  </div>
+</div>
+<div style="text-align:center;">
+  <a href="{{ url_for('auth.register') }}" class="btn btn-primary" style="margin-right:1rem;padding:0.8rem 2rem;">Daftar Sekarang</a>
+  <a href="{{ url_for('auth.login') }}" class="btn" style="padding:0.8rem 2rem;background:var(--white);color:var(--purple-dark);border:2px solid var(--purple-light);">Login</a>
+</div>
+{% endblock %}

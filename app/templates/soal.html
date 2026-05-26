@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Kelola Soal — EduQuiz{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>📝 Tambah Soal Baru</h2>
+  <form method="POST" action="{{ url_for('soal.tambah') }}">
+    <div class="form-group"><label>Pertanyaan</label><textarea name="pertanyaan" rows="2" required></textarea></div>
+    <div class="form-row">
+      <div class="form-group"><label>Pilihan A</label><input type="text" name="pilihan_a" required></div>
+      <div class="form-group"><label>Pilihan B</label><input type="text" name="pilihan_b" required></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Pilihan C</label><input type="text" name="pilihan_c" required></div>
+      <div class="form-group"><label>Pilihan D</label><input type="text" name="pilihan_d" required></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Jawaban Benar</label><select name="jawaban" required><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select></div>
+      <div class="form-group"><label>Kategori</label><input type="text" name="kategori" placeholder="cth: Matematika" value="Umum"></div>
+    </div>
+    <button type="submit" class="btn btn-primary">Tambah Soal</button>
+  </form>
+</div>
+<div class="card">
+  <h2>Bank Soal ({{ soals|length }})</h2>
+  {% if soals %}
+  <table>
+    <thead><tr><th>Pertanyaan</th><th>Jawaban</th><th>Kategori</th><th>Aksi</th></tr></thead>
+    <tbody>
+      {% for s in soals %}
+      <tr>
+        <td>{{ s.pertanyaan }}</td>
+        <td><span class="badge">{{ s.jawaban|upper }}</span></td>
+        <td>{{ s.kategori }}</td>
+        <td><form method="POST" action="{{ url_for('soal.hapus', id=s.id) }}" onsubmit="return confirm('Hapus soal ini?')"><button type="submit" class="btn btn-danger btn-sm">Hapus</button></form></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}<p style="color:var(--muted);text-align:center;padding:2rem;">Belum ada soal. Tambahkan soal pertama!</p>{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Quiz — EduQuiz{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>✏️ Kerjakan Quiz</h2>
+  {% if soals %}
+  <form method="POST" action="{{ url_for('quiz.submit') }}">
+    {% for s in soals %}
+    <div class="soal-card">
+      <p class="q">{{ loop.index }}. {{ s.pertanyaan }}</p>
+      <label class="opsi"><input type="radio" name="soal_{{ s.id }}" value="a" required> A. {{ s.pilihan_a }}</label>
+      <label class="opsi"><input type="radio" name="soal_{{ s.id }}" value="b"> B. {{ s.pilihan_b }}</label>
+      <label class="opsi"><input type="radio" name="soal_{{ s.id }}" value="c"> C. {{ s.pilihan_c }}</label>
+      <label class="opsi"><input type="radio" name="soal_{{ s.id }}" value="d"> D. {{ s.pilihan_d }}</label>
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary" style="margin-top:1rem;">Kumpulkan Jawaban</button>
+  </form>
+  {% else %}<p style="color:var(--muted);text-align:center;padding:2rem;">Belum ada soal yang tersedia. Hubungi guru untuk menambahkan soal.</p>{% endif %}
+</div>
+{% endblock %}

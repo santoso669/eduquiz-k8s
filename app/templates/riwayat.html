@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Riwayat Hasil — EduQuiz{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>📊 Riwayat Hasil Quiz</h2>
+  {% if hasils %}
+  <table>
+    <thead><tr>{% if current_user.role == 'guru' %}<th>Siswa</th>{% endif %}<th>Skor</th><th>Benar</th><th>Total Soal</th><th>Tanggal</th></tr></thead>
+    <tbody>
+      {% for h in hasils %}
+      <tr>
+        {% if current_user.role == 'guru' %}<td>{{ h.user.nama }}</td>{% endif %}
+        <td><span class="badge" style="background:{% if h.skor >= 70 %}#d4edda;color:#1a5c2e{% else %}#fde8e8;color:#8b1a1a{% endif %};font-size:0.9rem;">{{ h.skor }}</span></td>
+        <td>{{ h.benar }}</td>
+        <td>{{ h.total_soal }}</td>
+        <td>{{ h.created_at.strftime('%d %b %Y %H:%M') }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}<p style="color:var(--muted);text-align:center;padding:2rem;">Belum ada riwayat. Kerjakan quiz pertamamu!</p>{% endif %}
+</div>
+{% endblock %}

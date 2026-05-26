@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eduquiz-deployment
+  labels:
+    app: eduquiz
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: eduquiz
+  template:
+    metadata:
+      labels:
+        app: eduquiz
+    spec:
+      containers:
+        - name: eduquiz
+          image: GUMIWANG_DOCKERHUB/eduquiz-app:latest
+          ports:
+            - containerPort: 5000
+          env:
+            - name: SECRET_KEY
+              value: "eduquiz-secret-2026"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 10

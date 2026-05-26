@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Pilih Quiz — EduQuiz{% endblock %}
+{% block content %}
+<div class="card" style="max-width:500px;margin:2rem auto;">
+  <h2>🎯 Pilih Kategori Quiz</h2>
+  <form method="POST" action="{{ url_for('quiz.mulai') }}">
+    <div class="form-group">
+      <label>Kategori Soal</label>
+      <select name="kategori" required>
+        {% for k in kategori_list %}<option value="{{ k }}">{{ k }}</option>{% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-accent" style="width:100%;">Mulai Quiz 🚀</button>
+  </form>
+</div>
+{% endblock %}
