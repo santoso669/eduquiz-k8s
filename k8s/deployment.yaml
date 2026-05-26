@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
         - name: eduquiz
-          image: GUMIWANG_DOCKERHUB/eduquiz-app:latest
+          image: eduquiz-app:latest
+          imagePullPolicy: Never
           ports:
             - containerPort: 5000
           env:
