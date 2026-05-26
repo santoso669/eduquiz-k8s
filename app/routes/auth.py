@@ -66,3 +66,11 @@ def logout():
     logout_user()
     flash('Berhasil logout.', 'info')
     return redirect(url_for('auth.index'))
+    @auth_bp.route('/stress')
+def stress():
+    # Simulasi beban CPU tinggi untuk demo HPA
+    result = 0
+    for i in range(1000000):
+        result += i * i
+    return {'status': 'stress done', 'result': result}, 200
+
